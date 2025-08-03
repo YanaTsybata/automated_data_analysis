@@ -21,7 +21,14 @@ def load_data():
         print(f"Error: {e}")
         return None
 
-def basic_statistics(df):  return 0
+def basic_statistics(df):
+    print(f"Shape: {df.shape}")
+    print("\n Info: ")
+    df.info()
+    print("\n Describe: ")
+    print(df.describe())
+    print(f"\n Dtypes: {df.dtypes}")
+
 def create_visualizations(df):  return 0
 def missing_values_analysis(df):  return 0
 def numerical_analysis(df):  return 0
