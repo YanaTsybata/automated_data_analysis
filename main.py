@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
 def load_data():
@@ -29,7 +30,27 @@ def basic_statistics(df):
     print(df.describe())
     print(f"\n Dtypes: {df.dtypes}")
 
-def create_visualizations(df):  return 0
+
+def missing_values_analysis(df):
+    #  Сount the gaps by columns
+    missing_count = df.isnull().sum()
+
+    #  Total number of lines
+    total_rows = len(df)  # или df.shape[0]
+
+    #  Missing persent
+    missing_percent = (missing_count / total_rows) * 100
+    #  Visualisation
+    missing_count.plot(kind='bar')
+    plt.show()
+
+    # Results
+    print("Missing values:")
+    print(missing_count)
+    print("\nMissing percentage:")
+    print(missing_percent)
+
+
 def missing_values_analysis(df):  return 0
 def numerical_analysis(df):  return 0
 def categorical_analysis(df):  return 0
