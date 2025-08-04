@@ -36,7 +36,7 @@ def missing_values_analysis(df):
     missing_count = df.isnull().sum()
 
     #  Total number of lines
-    total_rows = len(df)  # или df.shape[0]
+    total_rows = len(df)
 
     #  Missing persent
     missing_percent = (missing_count / total_rows) * 100
