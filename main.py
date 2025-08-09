@@ -20,42 +20,60 @@ def load_data():
     return df
 
 
-# def basic_statistics(df):
-#    print(f"Shape: {df.shape}")
-#    print("\n Info: ")
-#    df.info()
-#    print("\n Describe: ")
-#    print(df.describe())
-#    print(f"\n Dtypes: {df.dtypes}")
+def basic_statistics(df):
+    print("\n" + "=" * 50)
+    print(" Basic Statistics")
+    print("=" * 50)
+
+    print(f" Dataset size: {df.shape[0]} rows, {df.shape[1]} columns")
+
+    print("\n Information about the columns:")
+    df.info()
+
+    print("\n Descriptive statistics of numerical columns:")
+    print(df.describe())
+
+    print(f"\n️ Data types:")
+    for col, dtype in df.dtypes.items():
+        print(f"  {col}: {dtype}")
 
 
-#def missing_values_analysis(df):
-    #  Сount the gaps by columns
-#    missing_count = df.isnull().sum()
+def missing_values_analysis(df):
+    print("\n" + "=" * 50)
+    print(" ANALYSIS OF MISSED VALUES")
+    print("=" * 50)
 
-    #  Total number of lines
-#    total_rows = len(df)
+    # Counting gaps by columns
+    missing_count = df.isnull().sum()
+    total_rows = len(df)
+    missing_percent = (missing_count / total_rows) * 100
 
-    #  Missing persent
-#    missing_percent = (missing_count / total_rows) * 100
-    #  Visualisation
-#    missing_count.plot(kind='bar')
-#    plt.show()
+    # We create a table with the results
+    missing_df = pd.DataFrame({
+        'Column': missing_count.index,
+        'Missing values': missing_count.values,
+        'Percentage': missing_percent.values
+    })
 
-    # Results
-#    print("Missing values:")
-#    print(missing_count)
-#    print("\nMissing percentage:")
-#    print(missing_percent)
+    print(" Summary of missing values:")
+    print(missing_df.to_string(index=False))
+
+    # Missing values visualization
+    if missing_count.sum() > 0:
+        plt.figure(figsize=(10, 6))
+        missing_count[missing_count > 0].plot(kind='bar', color='coral')
+        plt.title('Number of missing values per column')
+        plt.xlabel('Columns')
+        plt.ylabel('Number of missing values')
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.show()
+    else:
+        print(" No missing values found!")
 
 
-#def numerical_analysis(df):
-#    #  Find only numeric columns
-#    numeric_cols = df.select_dtypes(include=['number']).columns
-#    for x in numeric_cols:
-#        print("statistics")
+def categorical_analysis(df):
 
-def categorical_analysis(df):  return 0
 def text_analysis(df):  return 0
 def correlation_analysis(df):  return 0
 def generate_report(df):  return 0
@@ -65,8 +83,29 @@ def main():
     print("START AUTOMATIC DATA ANALYSIS")
     print("=" * 50)
 
-    # Загружаем данные
+    functions = {
+        "1": basic_statistics,
+        "2": missing_values_analysis,
+        "3": categorical_analysis,
+        "4": text_analysis,
+        "5": correlation_analysis,
+        "6": generate_report
+    }
+
+    # loading data
     df = load_data()
+    print("What do you want to check/find/see?: \n1 - basic_statistics,\n2 - missing_values_analysis\n3 - categorical_analysis,\n4 - text_analysis,\n5 - correlation_analysis,\n6 - generate_report,\n7 - everything")
+    choice = input(f"Write the number or numbers (e.g., 1,2,3 or just 1): ").strip()
+    if choice == 7:
+        for func in functions.values():
+            func(df)
+    else:
+        numbers = [num.strip() for num in choice.split(",")]
+        for num in numbers:
+            if num in functions:
+                functions[num](df)
+            else:
+                print(f"Incorrect number: {num}")
 
 if __name__ == '__main__':
     main()
