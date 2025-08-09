@@ -114,7 +114,18 @@ def categorical_analysis(df):
 
 def text_analysis(df):  return 0
 def correlation_analysis(df):  return 0
-def generate_report(df):  return 0
+
+
+def generate_report(df):
+    """Generate a summary report"""
+    print("\n" + "=" * 70)
+    print(" FINAL DATA ANALYSIS REPORT")
+    print("=" * 70)
+
+    print(f" Dataset size: {df.shape[0]} rows, {df.shape[1]} columns")
+    print(f" Numerical columns: {len(df.select_dtypes(include=['number']).columns)}")
+    print(f"️ Categorical columns: {len(df.select_dtypes(include=['object', 'category']).columns)}")
+    print(f" Total missing values: {df.isnull().sum().sum()}")
 
 
 def main():
