@@ -73,6 +73,44 @@ def missing_values_analysis(df):
 
 
 def categorical_analysis(df):
+    print("\n" + "="*50)
+    print("CATEGORICAL Data Analyses")
+    print("="*50)
+
+    categorical_cols = df.select_dtypes(include=['object', 'category']).columns
+
+    if len(categorical_cols) == 0:
+        print("No categorised columns were found!")
+        return
+
+    print(f"Categorised columns found:: {list(categorical_cols)}")
+
+    # Analysis of each categorical column
+    for col in categorical_cols:
+        print(f"\nColumn analysis '{col}':")
+        value_counts = df[col].value_counts()
+        print(f"  Unique values: {df[col].nunique()}")
+        print(f"  🔝 Top values:")
+        for value, count in value_counts.head(5).items():
+            percentage = (count / len(df)) * 100
+            print(f"    {value}: {count} ({percentage:.1f}%)")
+
+    # Visualisation of categorical data
+    if len(categorical_cols) > 0:
+        fig, axes = plt.subplots(1, len(categorical_cols), figsize=(6 * len(categorical_cols), 4))
+        if len(categorical_cols) == 1:
+            axes = [axes]
+
+        for i, col in enumerate(categorical_cols):
+            df[col].value_counts().plot(kind='bar', ax=axes[i], color='lightgreen')
+            axes[i].set_title(f'Distribution {col}')
+            axes[i].set_xlabel(col)
+            axes[i].set_ylabel('Quantity')
+            axes[i].tick_params(axis='x', rotation=45)
+
+        plt.tight_layout()
+        plt.show()
+
 
 def text_analysis(df):  return 0
 def correlation_analysis(df):  return 0
