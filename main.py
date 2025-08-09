@@ -112,9 +112,38 @@ def categorical_analysis(df):
         plt.show()
 
 
-def text_analysis(df):  return 0
-def correlation_analysis(df):  return 0
+def text_analysis(df):
+    #  Text data analysis
+    print("\nTEXT ANALYSIS")
+    print("-" * 30)
 
+    text_cols = df.select_dtypes(include=['object']).columns
+
+    print(f"Text columns: {list(text_cols)}")
+
+    for col in text_cols:
+        print(f"\n'{col}' column:")
+        print(f"  Unique values: {df[col].nunique()}")
+        print(f"  Most common: {df[col].mode().iloc[0] if len(df[col].mode()) > 0 else 'None'}")
+
+
+def correlation_analysis(df):
+    #  Correlation analysis
+    print("\nCORRELATION ANALYSIS")
+    print("-" * 30)
+
+    numeric_cols = df.select_dtypes(include=['number']).columns
+
+    if len(numeric_cols) < 2:
+        print("Need at least 2 numeric columns!")
+        return
+
+    print(f"Numeric columns: {list(numeric_cols)}")
+
+    # Correlation between the first two columns
+    col1, col2 = numeric_cols[0], numeric_cols[1]
+    correlation = df[col1].corr(df[col2])
+    print(f"Correlation between {col1} and {col2}: {correlation:.2f}")
 
 def generate_report(df):
     """Generate a summary report"""
