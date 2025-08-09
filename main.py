@@ -94,7 +94,7 @@ def main():
 
     # loading data
     df = load_data()
-    print("What do you want to check/find/see?: \n1 - basic_statistics,\n2 - missing_values_analysis\n3 - categorical_analysis,\n4 - text_analysis,\n5 - correlation_analysis,\n6 - generate_report,\n7 - everything")
+    print("What do you want to check/find/see?: \n1 - basic_statistics,\n2 - missing_values_analysis\n3 - categorical_analysis,\n4 - text_analysis,\n5 - correlation_analysis,\n6 - generate_report,\n7 - everything ")
     choice = input(f"Write the number or numbers (e.g., 1,2,3 or just 1): ").strip()
     if choice == 7:
         for func in functions.values():
