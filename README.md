@@ -1,5 +1,3 @@
-# automated_data_analysis
-
 # 📊 Automated Data Analysis Tool
 
 A tool for quick CSV data analysis with automatic statistics generation and visualizations.
