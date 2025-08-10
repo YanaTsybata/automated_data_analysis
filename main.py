@@ -1,24 +1,17 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 
 
 def load_data():
-    # Creating a test dataset like Titanic
-    data = {
-        'age': [22, 38, 26, 35, None, 54, 2, 27, 14, 4, 29, 33, 41, 19, 67],
-        'fare': [7.25, 71.28, 7.92, 53.1, 8.05, 51.86, 21.08, 11.13, 30.07, 16.7, 13.5, 26.25, 77.96, 8.66, 26.55],
-        'sex': ['male', 'female', 'female', 'female', 'male', 'male', 'male', 'female', 'female', 'female', 'male',
-                'female', 'male', 'male', 'female'],
-        'class': [3, 1, 3, 1, 3, 1, 3, 3, 2, 3, 3, 2, 1, 3, 2],
-        'survived': [0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1],
-        'embarked': ['S', 'C', 'S', 'S', 'S', None, 'S', 'S', 'C', 'S', 'Q', 'C', 'S', 'S', 'C']
-    }
-    df = pd.DataFrame(data)
-    print(f"Test Titanic loaded: {df.shape}")
-    print(f"Columns: {list(df.columns)}")
-    return df
+    #  Load dataset from CSV file
+    file_path = "../file.csv"
 
+    df = pd.read_csv(file_path)
+
+    print(f"Dataset loaded: {df.shape}")
+    print(f"Columns: {list(df.columns)}")
+
+    return df
 
 def basic_statistics(df):
     print("\n" + "=" * 50)
@@ -174,7 +167,7 @@ def main():
     df = load_data()
     print("What do you want to check/find/see?: \n1 - basic_statistics,\n2 - missing_values_analysis\n3 - categorical_analysis,\n4 - text_analysis,\n5 - correlation_analysis,\n6 - generate_report,\n7 - everything ")
     choice = input(f"Write the number or numbers (e.g., 1,2,3 or just 1): ").strip()
-    if choice == 7:
+    if choice == "7":
         for func in functions.values():
             func(df)
     else:
