@@ -13,7 +13,6 @@ A tool for quick CSV data analysis with automatic statistics generation and visu
 
 ## 🚀 Installation
 
-
 ```bash
 pip install pandas matplotlib
 ```
